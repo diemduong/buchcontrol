@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th=“http://www.thymeleaf.org”>
+<head>
+    <title>Buchsammlung</title>
+    <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8" />
+    <link type="text/css" rel="stylesheet" href="bootstrap.min.css" th:href="@{bootstrap.min.css}" />
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Bücher</h1>
+    <a href="/addBuch" class="btn btn-success">Buch hinzufügen</a>
+    <table class="table">
+        <tr>
+            <th>Titel</th>
+            <th>Buchtyp</th>
+            <th>Author</th>
+        </tr>
+        <tr th:each="buch : ${books.content}">
+            <td th:text="${buch.titel}"></td>
+            <td th:text="${buch.typ}"></td>
+            <td th:text="${buch.author}"></td>
+            <td><a th:href="@{/delete/{id}(id=${buch.id})}" class="btn btn-danger">Löschen</a> </td>
+            <td><a class="btn btn-success eBtn" id="eBtn">Bearbeiten
+                </a></td>
+        </tr>
+    </table>
+
+    <ul class="nav nav-pills">
+        <li class="nav-item" th:each="i: ${#numbers.sequence(0,books.totalPages-1)}">
+            <a th:href="@{/(page=${i})}" th:text="${i}" class="nav-link"
+               th:classappend="${currPage}==${i}?'active':''"></a>
+        </li>
+    </ul>
+    <b th:text="${execInfo.now.time}"></b>
+    </div>
+
+<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="jquery-3.3.1.js"></script>
+<script type="text/javascript" src="bootstrap.min.js"></script>
+
+</body>
+</html>
